@@ -5,6 +5,11 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // Habilitar CORS para o front-end
+  app.enableCors({
+    origin: 'http://localhost:5173', // Porta padrão do Vite
+  });
+
   // Configuração do Swagger
   const config = new DocumentBuilder()
     .setTitle('Microservice Chatbot')
@@ -19,9 +24,6 @@ async function bootstrap() {
 
   // Logger profissional
   const { Logger } = await import('@nestjs/common');
-  Logger.log(
-    `Microservice Chatbot iniciado em: http://localhost:${port}/docs`,
-    `Bootstrap`,
-  );
+  Logger.log(`Microservice Chatbot iniciado em: http://localhost:${port}/docs`, 'Bootstrap');
 }
 bootstrap();
