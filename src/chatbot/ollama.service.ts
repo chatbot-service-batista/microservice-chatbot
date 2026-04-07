@@ -1,16 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import axios, { AxiosResponse } from 'axios';
-
-interface OllamaRequest {
-  model: string;
-  prompt: string;
-  stream?: boolean;
-}
-
-interface OllamaResponse {
-  response: string;
-  // Adicione outros campos conforme necessário
-}
+import { OllamaRequest, OllamaResponse } from './interface/ollama.interface';
 
 @Injectable()
 export class OllamaService {
@@ -20,7 +10,7 @@ export class OllamaService {
 
   async generateGemma3(prompt: string): Promise<string> {
     const payload: OllamaRequest = {
-      model: 'gemma:3:latest',
+      model: 'gemma3:latest',
       prompt,
       stream: false,
     };
@@ -31,9 +21,11 @@ export class OllamaService {
       );
       this.logger.log('Resposta recebida do Ollama com Gemma 3');
       return response.data.response;
-    } catch (error: any) {
-      this.logger.error('Erro ao chamar Ollama', error?.message || error);
-      throw new Error('Erro ao chamar Ollama: ' + (error?.message || error));
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Erro desconhecido';
+      this.logger.error('Erro ao chamar Ollama', message);
+      throw new Error('Erro ao chamar Ollama: ' + message);
     }
   }
 }

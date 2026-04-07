@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AppService } from './app.service';
-import { OllamaService } from './chatbot/service/ollama.service';
 import { GenerateGemma3Dto } from './chatbot/dto/generate-gemma3.dto';
+import { OllamaService } from './chatbot/ollama.service';
 
 @Controller()
 export class AppController {

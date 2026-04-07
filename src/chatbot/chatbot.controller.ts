@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { OllamaService } from '../service/ollama.service';
-import { GenerateGemma3Dto } from '../dto/generate-gemma3.dto';
+import { GenerateGemma3Dto } from './dto/generate-gemma3.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { OllamaService } from './ollama.service';
 
 @ApiTags('Chatbot')
 @Controller('chatbot')
